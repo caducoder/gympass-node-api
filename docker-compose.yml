@@ -1,0 +1,10 @@
+services:
+  postgresql:
+    image: bitnami/postgresql:latest
+    container_name: api-node-pg
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=gympassdb
