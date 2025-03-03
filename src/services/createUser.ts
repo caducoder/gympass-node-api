@@ -1,10 +1,6 @@
-import { prisma } from "@/lib/prisma.js";
-import { PrismaUsersRepository } from "@/repositories/prisma-users-repository.js";
 import type { UsersRepository } from "@/repositories/repository-interfaces.js";
 import { hash } from "bcryptjs";
 import { UserAlreadyExistsError } from "./errors/user-already-exists-error.js";
-
-
 
 interface CreateUserParams {
   name: string;
@@ -28,8 +24,9 @@ export class CreateUserService {
       throw new UserAlreadyExistsError()
     }
   
-  
-    await this.usersRepository.create({email, name, password_hash})
+    const user = await this.usersRepository.create({email, name, password_hash})
+
+    return user
   }
 }
 

@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "tsx watch --env-file=.env src/server.ts",
     "start": "node build/server.js",
-    "build": "tsup src --format esm --out-dir build"
+    "build": "tsup src --format esm --out-dir build",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +21,9 @@
     "prisma": "6.4.1",
     "tsup": "^8.4.0",
     "tsx": "4.19.3",
-    "typescript": "5.8.2"
+    "typescript": "5.8.2",
+    "vite-tsconfig-paths": "5.1.4",
+    "vitest": "3.0.7"
   },
   "dependencies": {
     "@prisma/client": "6.4.1",
