@@ -1,6 +1,7 @@
 import z from "zod";
 import type { FastifyPluginAsyncZod } from "fastify-type-provider-zod";
-import { createUserService } from "@/services/createUser.js";
+import { CreateUserService } from "@/services/createUser.js";
+import { PrismaUsersRepository } from "@/repositories/prisma-users-repository.js";
 
 export const createUser: FastifyPluginAsyncZod = async app => {
   app.post("/users",
@@ -14,10 +15,13 @@ export const createUser: FastifyPluginAsyncZod = async app => {
       const {name, email, password} = request.body
 
       try {
-        await createUserService({email, name, password})
+        const prismaUsersRepository = new PrismaUsersRepository()
+        const createUserService = new CreateUserService(prismaUsersRepository)
+        await createUserService.execute({email, name, password})
 
         return reply.status(201).send()
-      } catch (error) {
+      } catch (error: unknown) {
+        console.log(error)
         return reply.status(400).send()
       }
     
